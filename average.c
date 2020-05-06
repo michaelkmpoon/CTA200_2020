@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+/* add 10 to average*/
 
 double average(int n, double arr[]) {
     double acc = 0.0;
@@ -8,5 +8,5 @@ double average(int n, double arr[]) {
         acc += arr[i];
     }
 
-    return acc / n;
+    return acc / n + 10;
 }
