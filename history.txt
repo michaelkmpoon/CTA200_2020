@@ -1,0 +1,25 @@
+  732  git config --global user.name "Michael"
+  733  git config --global user.email michaelkm.poon@mail.utoronto.ca
+  795  cd ~
+  796  pwd
+  797  mkdir -p repos/CTA200.git
+  798  cd repos/CTA200.git
+  799  git init --bare
+  803  gedit
+  802  LICENSE
+  816  git add Makefile main.c average.c average.h
+  822  cd CTA200.git
+  823  git add Makefile main.c average.c average.h
+  824  git commit -m 'Step 7'
+  825  git push
+  826  ls 
+  827  gedit average.c
+  828  make
+  829  module load gcc/5.4.0
+  830  make
+  831  ./main > bonus.txt
+  832  git add Makefile main.c average.c average.h
+  833  git commit -m 'Step 9 Bonus: add 10 to average'
+  834  git push
+  835  history
+  836  history > history.txt
