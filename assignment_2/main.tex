@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amsmath,amsthm,amssymb, bbm, graphicx, hyperref, float}
+
+\title{CTA200 Assignment 2}
+\author{Michael Poon}
+\date{Due: May 8 2020}
+
+\begin{document}
+\maketitle
+
+\section{Mandelbrot Set}
+
+In this question, we use \texttt{matplotlib, numpy} in Python. We use a double for-loop to iterate over every combination of 200 x and 200 y points, linearly spaced from -2 to 2. For each set of (x,y) points, we calculate $|z|^2$, iterate i 100 times, and if $z^2$ increases above 100, we deem it to diverge. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{mandelbrot1.png}
+    \caption{Mandelbrot set for $-2<x<2,-2<y<2$. Yellow indicates converging region, purple indicates diverging region.}
+\end{figure}
+
+Furthermore, we can color code when $|z|^2$ diverges over 100 which is seen in Figure 2.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{mandelbrot2.png}
+    \caption{Similar to Fig. 1, with colorbar representing iteration of divergence. }
+\end{figure}
+
+This question walks us through in developing a famous mathematical set called the Mandelbrot set, which entails highly complex fractal shapes. We can notice these fractal shapes begin to form along the border between the yellow and purple in Fig. 2. To further view the fractal shapes, we can zoom in on specific regions of interest which increases the local resolution to yield further complexity.
+
+\section{SIR (Susceptible-Infected-Recovered) Model}
+
+In this question, we use \texttt{matplotlib, scipy.integrate} in Python to solve the given system of differential equations. Specifically, we use the scipy.integrate subpackage \texttt{odeint} which solves the system of ODE's by integration to uncover how variables S (susceptible individuals), I (infected individuals) and R (recovered individuals) evolve over time. Using the SIR Model suggestions in the Compartmental Models in Epidemiology Wiki page, we choose 3 values of $\gamma$ and $\beta$ centred around $\gamma=0.035, \beta=0.4$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{SIR_grid.pdf}
+    \caption{Grid of evolved equations for various $\beta,\gamma$ values.}
+\end{figure}
+
+We can introduce a new variable $\mu$ to represent the rate of mortality, subtracting $/mu I$ from the second ODE and equating it to $\frac{dD}{dt}$, as suggested in the SIRD section of the aforementioned Wiki page. This accounts for infected individuals who have died (since susceptible and recovered people cannot directly die from the modelled disease).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{SIRD.png}
+    \caption{Similar to Fig 3., with $\mu=0.005$ and deaths starting at 0. This solves a set of 4 first order differential equations.}
+\end{figure}
+
+
+\end{document}
