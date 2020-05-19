@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amsmath,amsthm,amssymb, bbm, graphicx, hyperref, float}
+
+\title{CTA200 Final Assignment (Supervisor: JJ Zanazzi)}
+\author{Michael Poon}
+\date{Due: May 19 2020}
+
+\begin{document}
+\maketitle
+
+In this assignment, we study the dynamics and statistical properties of a star \& hot Jupiter system. Specifically, we are interested in the evolution of the planet's obliquity (angle between stellar rotation axis and planetary orbital axis, i.e. Earth's axial tilt as 23.5 degrees is its obliquity) $\psi$ and also its spin frequency $\Omega_*$, given in the set of ODEs in the question.
+
+\section{Planet Obliquity and Spin Period Evolution}
+Focusing only on the effects of internal gravity waves, we reproduce plots similar to Fig. 8 in Li \& Winn 2016. Fig. 1 shows that in all cases: spin period increases and obliquity angle decreases as the system evolves, suggesting energy dissipation due to internal gravity waves. Our script uses \texttt{scipy.integrate.odeint} to evolve the ODEs and \texttt{matplotlib} to plot.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.27]{q1.pdf}
+    \caption{Top: Spin period evolution over various initial conditions. This is given by $2\pi/\Omega_*$. Bottom: Planet obliquity evolution corresponding to the same initial conditions.}
+\end{figure}
+
+\section{Planet Obliquity Evolution with Inverse Transform Sampling}
+Inverse transform sampling is a statistical method that transforms a simple uniform distribution P(y) with input $y\in[0,1]$ into a given probability distribution P($\psi$). In our case, our probability distribution is $P(\psi)=\frac{1}{2}\sin{\psi}$ where $\psi \in [0,\pi]$. First, we calculate the cumulative distribution function by integrating, then solve for $\psi$:
+
+\begin{align*}
+    F(\psi) &= \int_0^\psi{\frac{1}{2}\sin{\psi'}d\psi'} \\
+    &=\frac{-\cos{\psi}}{2}+\frac{1}{2} \\
+    \text{Set $y = F(\psi)$} &\implies y = \frac{-\cos{\psi}}{2}+\frac{1}{2} \\
+    &\implies \psi = \cos^{-1}{(1-2y)}
+\end{align*}
+
+This gives us a sinusoidal-looking distribution of initial $\psi$ values (as expected, since $P(\psi)=\frac{1}{2}\sin{\psi}$) which we feed into our ODEs similar to Q1 with various values for the inertial dissipation parameter $\Omega_{*,6}=5,10,20$ days. The final distribution is heavily bimodal at 0 and 90 degrees, with a greater spread of final values for lower $\Omega_{*,6}$ values, implying a dependence of inertial dissipation parameter in obliquity evolution.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.18]{q2.pdf}
+    \caption{Final obliquity histogram for various inertial wave dissipation parameters.}
+\end{figure}
+
+\pagebreak
+
+\section{Inferring Planet Obliquity}
+ 
+We solve for projected obliquity $\lambda$ by equation (4) in the question for given orbital inclination (90 degrees), obliquity and azimuthal angle. For given value of $\lambda$, the most likely value for $\psi$ is the same value, except for a degeneracy at $\lambda=60^\circ$ which could correspond to $\psi$ equal to 60 or 120 degrees.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.45]{q3.pdf}
+    \caption{Histogram of projected obliquity for given obliquities and uniformly distributed azimuthal angles.}
+\end{figure}
+
+
+\end{document}
